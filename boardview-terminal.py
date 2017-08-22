@@ -31,7 +31,6 @@ class BoardViewTerminal:
     player_loc = board.get_player_loc()
     temp[player_loc[1]*2][player_loc[0]*2] = 'P'
 
-    print(temp)
     # Render everything
     str = '--' + '-'*size[0]*2 + '-\n'
     str += '| ' + '  '*size[0] + '|\n'
@@ -40,7 +39,7 @@ class BoardViewTerminal:
       for col in row:
         str += col
       str += '|\n'
-    str += '| ' + '  '*size[0] + '|\n'
+    # buffer row is already drawn as artifact
     str += '--' + '-'*size[0]*2 + '-'
     print(str)
 
