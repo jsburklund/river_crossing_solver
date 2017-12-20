@@ -1,3 +1,5 @@
+from player import Player
+
 class Board:
   planks = []
   stumps = []
@@ -10,14 +12,9 @@ class Board:
     if (end_stump not in self.stumps):
       self.stumps.append(end_stump)
     self.planks = planks
-    self.player_loc = start_stump
+    self.player = Player(start_stump)
 
-  def print_stumps(self):
-    print(self.stumps)
-
-  def print_planks(self):
-    print(self.planks)
-
+  # Stumps implemented as a simple tuples
   def get_stumps(self):
     return self.stumps
 
@@ -27,5 +24,14 @@ class Board:
   def get_size(self):
     return self.size
 
-  def get_player_loc(self):
-    return self.player_loc
+  def get_player(self):
+    return self.player
+
+  def move_player(self, new_loc):
+    # Check that the new position is valid
+    if not self.valid_player_loc(new_loc):
+      raise ValueError('New player location is not on a stump')
+    self.player.set_loc(new_loc)
+
+  def valid_player_loc(self, player_loc):
+    return player_loc in self.get_stumps()
