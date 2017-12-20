@@ -13,6 +13,7 @@ class Board:
       self.stumps.append(end_stump)
     self.planks = planks
     self.player = Player(start_stump)
+    self.end_stump = end_stump
 
   # Stumps implemented as a simple tuples
   def get_stumps(self):
@@ -45,3 +46,7 @@ class Board:
     if plank in self.planks:
       raise ValueError('Plank already on the board')
     self.planks.append(plank)
+
+  def complete(self):
+    return self.player.get_loc() == self.end_stump
+     

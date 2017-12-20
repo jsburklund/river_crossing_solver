@@ -7,9 +7,6 @@ class GetMovesController:
   def __init__(self):
     self.board = board
 
-  def getMoves(board):
-    return []
-
   def getWalkMoves(board):
     player_pos = board.get_player().get_loc()
     planks = board.get_planks()
@@ -44,3 +41,10 @@ class GetMovesController:
           plank_moves.append(PickupPlankMove(board, plank))
 
     return plank_moves
+
+
+  def getMoves(board):
+    moves = GetMovesController.getWalkMoves(board)
+    moves.extend(GetMovesController.getPlankMoves(board))
+    return moves
+
