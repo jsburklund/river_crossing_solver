@@ -19,8 +19,8 @@ class Plank:
     self.to_loc = to_loc
     self.from_loc = from_loc
 
-  def move_plank(new_to, new_from):
-    if self.calc_length(new_to, new_from) != length:
+  def move_plank(self, new_to, new_from):
+    if self.calc_length(new_to, new_from) != self.length:
       raise ValueError('Length does not match distance between new points')
     self.to_loc = new_to
     self.from_loc = new_from

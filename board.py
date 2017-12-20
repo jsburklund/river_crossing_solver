@@ -35,3 +35,13 @@ class Board:
 
   def valid_player_loc(self, player_loc):
     return player_loc in self.get_stumps()
+
+  def remove_plank(self, plank):
+    if plank not in self.planks:
+      raise ValueError('Not a plank in the current board set')
+    self.planks.remove(plank)
+
+  def add_plank(self, plank):
+    if plank in self.planks:
+      raise ValueError('Plank already on the board')
+    self.planks.append(plank)
