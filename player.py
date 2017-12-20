@@ -13,10 +13,10 @@ class Player:
     return plank
 
   def get_plank(self):
-    return plank
+    return self.holding
 
   def is_holding_plank(self):
-    return plank != None
+    return self.holding != None
 
   def get_loc(self):
     return self.pos
