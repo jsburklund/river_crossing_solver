@@ -28,7 +28,7 @@ class BoardViewTerminal:
           temp[(start_point[1]*2)+i+1][start_point[0]*2] = '|'
 
     #Draw the player
-    player_loc = board.get_player_loc()
+    player_loc = board.get_player().get_loc()
     temp[player_loc[1]*2][player_loc[0]*2] = 'P'
 
     # Render everything
