@@ -29,7 +29,18 @@ class GetMovesController:
       for stump in board.get_stumps():
         try:
           if plank.calc_length(stump, player.get_loc()) == plank.length:
-            plank_moves.append(DropPlankMove(board, stump))
+            # Check if there are any stumps in the way
+            if stump[0] == player.get_loc()[0]:
+              between_stumps = [(stump[0], i) for i in range(stump[1]+1, player.get_loc()[1]) ]
+            else: 
+              between_stumps = [(i,stump[1]) for i in range(stump[0]+1, player.get_loc()[0]) ]
+            blocking = False
+            for test_stump in between_stumps:
+              if test_stump in board.get_stumps():
+                blocking = True
+                break
+            if not blocking:
+              plank_moves.append(DropPlankMove(board, stump))
         except:
           pass
 
