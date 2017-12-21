@@ -49,4 +49,38 @@ class Board:
 
   def complete(self):
     return self.player.get_loc() == self.end_stump
-     
+  
+  def __eq__(self, other):
+    if self is other:
+      return True
+    if isinstance(self, other.__class__):
+      is_player_loc_same = self.get_player().get_loc() == other.get_player().get_loc()
+      try:
+        is_player_holding_same = self.get_player().get_plank().get_length() == other.get_player().get_plank().get_length()
+      except:
+        is_player_holding_same = self.get_player().get_plank()==None and other.get_player().get_plank()==None
+      # Check if the same length planks are in the same locations
+      my_dict = self.get_plank_dict()
+      your_dict = other.get_plank_dict()
+      is_planks_same = True
+      for key in my_dict.keys():
+        for plank_loc in my_dict[key]:
+          if plank_loc not in your_dict.get(key, []):
+            is_planks_same = False
+            break
+        if not is_planks_same:
+          break
+      return is_player_loc_same & is_player_holding_same & is_planks_same
+    # Not the same instance, so can't be the same
+    return False
+
+  def __ne__(self, other):
+    return not self.__eq__(other)
+
+  def get_plank_dict(self):
+    plank_dict = {}
+    for plank in self.planks:
+      key_val = plank_dict.get(plank.get_length(), [])
+      key_val.append([plank.get_point_closest_origin(), plank.get_point_furthest_origin()])
+      plank_dict[plank.get_length()] = key_val
+    return plank_dict
