@@ -8,6 +8,10 @@ class MultiMoveTree:
     self.move = move
     self.children = children
     self.parent = parent
+    if parent==None:
+      self.depth = 0
+    else:
+      self.depth = parent.depth + 1
 
 class Solver:
 
@@ -53,6 +57,8 @@ class Solver:
       if len([seen_board for seen_board in seen_boards if new_board == seen_board]) > 0:
         continue
       seen_boards.append(new_board)
+      print("Seen: "+str(len(seen_boards))+" To Eval: "+str(to_evaluate.qsize())+" Depth: "+str(my_move_tree.depth))
+      bv.draw(new_board)
 
       # Otherwise, get a list of all possible next moves
       my_children = [MultiMoveTree(next_move, my_move_tree, None) for next_move in getMoves(new_board)]
