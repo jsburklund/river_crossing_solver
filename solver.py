@@ -1,6 +1,7 @@
 from getmovescontroller import GetMovesController
 from queue import Queue
 from boardviewterminal import BoardViewTerminal
+from nullmove import NullMove
 
 class MultiMoveTree:
   def __init__(self, move, parent, children):
@@ -21,24 +22,22 @@ class Solver:
   def unwind_tree(self, tree_item):
     actions = []
     curr_tree = tree_item
-    while curr_tree.parent != None:
+    while curr_tree != None:
       actions.append(curr_tree.move)
       curr_tree = curr_tree.parent
-    return actions
+    return reversed(actions)
 
   def solve(self):
     # Bootstrap the search with the first items to evaulaute
     to_evaluate = Queue()
     evaluated = Queue()
-    seen_boards = [self.board]
+    seen_boards = []
     getMoves = GetMovesController.getMoves
 
-    for move in getMoves(self.board):
-      to_evaluate.put_nowait(MultiMoveTree(move, None, None))
+    to_evaluate.put_nowait(MultiMoveTree(NullMove(self.board), None, None))
 
     bv = BoardViewTerminal()
     while not to_evaluate.empty():
-      print(to_evaluate.qsize())
       # Get the next move to evaluate
       my_move_tree = to_evaluate.get_nowait()
       # Execute the move and check if the move completes the game
@@ -47,6 +46,7 @@ class Solver:
       # If this move completes the game, we're done
       if new_board.complete():
         print("Found solution")
+        print("Num items evaluated: "+str(evaluated.qsize()))
         return self.unwind_tree(my_move_tree)
 
       # Check that the mutated board state hasn't already been evaluated

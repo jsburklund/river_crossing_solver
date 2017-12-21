@@ -9,11 +9,11 @@ def main():
 
 if __name__ == "__main__":
   board_drawer = BoardViewTerminal()
-  board = BoardFactoryPack1.make_board(1)
+  board = BoardFactoryPack1.make_board(2)
   board_drawer.draw(board)
   my_solver = Solver(board)
 
   moves = my_solver.solve()
-  moves = reversed(moves)
+  moves = moves
   for move in moves:
     board_drawer.draw(move.board)
