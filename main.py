@@ -9,7 +9,7 @@ def main():
 
 if __name__ == "__main__":
   board_drawer = BoardViewTerminal()
-  board = BoardFactoryPack1.make_board(38)
+  board = BoardFactoryPack1.make_board(17)
   board_drawer.draw(board)
   my_solver = Solver(board)
 
