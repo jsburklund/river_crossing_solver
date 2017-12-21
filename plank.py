@@ -41,6 +41,12 @@ class Plank:
       else:
          return self.from_loc
 
+  def get_point_furthest_origin(self):
+    if self.get_point_closest_origin() == self.to_loc:
+      return self.from_loc
+    else:
+      return self.to_loc
+
   def is_horizontal(self):
     # Return true if the y heights are the same
     # Assumes set methods have caught any errors
